@@ -1,0 +1,7 @@
+# Compile OpenCV 2
+docker build -t darknet ./docker
+docker run -it --rm -v ./docker/compile.sh:/opt/darknet/compile.sh -v ./deps:/opt/darknet/deps darknet compile.sh
+sudo chown -R $USER:$USER ./deps
+
+# Run darknet:
+./darknet classifier predict cfg/imagenet1k.data cfg/darknet.cfg darknet.weights sample1.jpg

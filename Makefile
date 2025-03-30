@@ -1,6 +1,6 @@
 GPU=0
 CUDNN=0
-OPENCV=0
+OPENCV=1
 OPENMP=0
 DEBUG=0
 
@@ -40,10 +40,9 @@ endif
 CFLAGS+=$(OPTS)
 
 ifeq ($(OPENCV), 1) 
-COMMON+= -DOPENCV
+COMMON+= -DOPENCV -I./deps/include
 CFLAGS+= -DOPENCV
-LDFLAGS+= `pkg-config --libs opencv` -lstdc++
-COMMON+= `pkg-config --cflags opencv` 
+LDFLAGS+= -L./deps/lib -lopencv_core -lopencv_imgproc -lopencv_highgui -lstdc++ "-Wl,-rpath,./deps/lib"
 endif
 
 ifeq ($(GPU), 1) 
